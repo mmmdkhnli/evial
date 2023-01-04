@@ -11,55 +11,61 @@
 
     const advertisementResponse = new AdvertisementRequest(advertisementConfig.type)
 
-    let _document, swiperElement, getNewData, fetchedHTML
+    let _document, swiperElement, getNewData, fetchedHTML, mySwiperSkeleton
 
     const uuidSelector = uuid()
 
 	const mountSwiper = () => {
-        swiperElement = new Swiper(`.advertisementSwiper-${ uuidSelector }`, {
-            slidesPerView: 2,
-            spaceBetween: 10,
-            navigation: {
-                nextEl: `.swiper-button-next-${ uuidSelector }`,
-                prevEl: `.swiper-button-prev-${ uuidSelector }`
-            },
-            breakpoints: {
-                550: {
-                    slidesPerView: 2,
-                    spaceBetween: 30
+        setTimeout(() => {
+            swiperElement = new Swiper(`.advertisementSwiper-${ uuidSelector }`, {
+                slidesPerView: 2,
+                spaceBetween: 10,
+                navigation: {
+                    nextEl: `.swiper-button-next-${ uuidSelector }`,
+                    prevEl: `.swiper-button-prev-${ uuidSelector }`
                 },
-                768: {
-                    slidesPerView: 3,
-                    spaceBetween: 30
-                },
-                1200: {
-                    slidesPerView: 4,
-                    spaceBetween: 40
-                },
-                1500: { 
-                    slidesPerView: 5,
-                    spaceBetween: 40
+                breakpoints: {
+                    550: {
+                        slidesPerView: 2,
+                        spaceBetween: 30
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 30
+                    },
+                    1200: {
+                        slidesPerView: 4,
+                        spaceBetween: 40
+                    },
+                    1500: { 
+                        slidesPerView: 5,
+                        spaceBetween: 40
+                    }
                 }
-            }
-        })
+            })
 
-        swiperElement.on('reachEnd', function () {
-            getNewData = true
-        })
+            if (mySwiperSkeleton) {
+                mySwiperSkeleton.remove()
+            }
+
+            swiperElement.on('reachEnd', function () {
+                getNewData = true
+            })
+        }, 0);
     }
 
     getNewData = false
 
 	onMount(() => {
         _document = document
+
+        mySwiperSkeleton = _document.querySelector(`.mySwiperSkeleton-${ uuidSelector }`)
 	})
 
     const getAdvertisementData = async () => {        
         const response = await advertisementResponse.fetchAdvertisementData()
-        
-        setTimeout(() => {
-            mountSwiper()
-        }, 0)
+
+        mountSwiper()
 
         return response
     }
@@ -89,12 +95,14 @@
     $: updateSlideItems(fetchedHTML)
 </script>
 
+<div class="mySwiperSkeleton mySwiperSkeleton-{ uuidSelector }">
+    {#each Array(10) as element }
+        <AdvertisementItemSkeleton />
+    {/each}
+</div>
+
 {#await getAdvertisementData() }
-    <div class="mySwiperSkeleton">
-        {#each Array(10) as element }
-            <AdvertisementItemSkeleton />
-        {/each}
-    </div>
+    { "" }
 {:then allAdvertisementData }
     <div class="advertisementSwiper-{ uuidSelector }">
         <div class="swiper-wrapper">
