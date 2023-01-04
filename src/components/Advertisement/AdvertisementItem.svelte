@@ -9,45 +9,7 @@
 
 	const uuidSelector = uuid()
 
-	let _document, imageSlider, mainImageMounted = false, allImagesFetched = false, swiperElement
-
-	const getAdvertisementMainImage = async (mainImage) => {
-		const collectionID = 219941
-		const numImagesAvailable = 982
-		const randomNumber = Math.floor(Math.random() * numImagesAvailable)
-
-		// ---------------------------------------------------------------
-
-		const response = await fetch(`https://source.unsplash.com/collection/${collectionID}/?sig=${randomNumber}`)
-		const imageBlob = await response.blob()
-		const imageObjectURL = URL.createObjectURL(imageBlob)
-
-		mainImage.src = imageObjectURL
-	}
-
-	const getAdvertisementImage = async () => {
-		const collectionID = 219941
-		const numImagesAvailable = 982
-		const randomNumber = Math.floor(Math.random() * numImagesAvailable)
-
-		// ---------------------------------------------------------------
-		
-		const response = await fetch(`https://source.unsplash.com/collection/${collectionID}/?sig=${randomNumber}`)
-		const imageBlob = await response.blob()
-		const imageObjectURL = URL.createObjectURL(imageBlob)
-
-		// console.log(imageObjectURL);
-
-		// return imageBlob
-
-		// fetch(`https://source.unsplash.com/collection/${collectionID}/?sig=${randomNumber}`)
-		// 	.then(response => response.blob())
-		// 	.then(imageBlob => {
-		// 		const imageObjectURL = URL.createObjectURL(imageBlob)
-
-		// 		console.log(imageObjectURL);
-		// 	})
-	}
+	let _document, imageSlider, swiperElement
 
 	const mountSwiper = () => {
 		const imageLinks = [

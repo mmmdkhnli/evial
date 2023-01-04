@@ -84,4 +84,10 @@
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
+
+    @media screen and (max-width: 549px) {
+        &> img {
+            height: 14px;
+        }
+    }
 }
