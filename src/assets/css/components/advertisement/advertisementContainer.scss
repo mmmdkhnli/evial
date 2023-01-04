@@ -1,0 +1,76 @@
+.advertisement__container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    background: #fff;
+    margin-top: 20px;
+
+    .inner {
+        width: 100%;
+        height: auto;
+
+        .banner-bg {
+            width: 80px;
+            height: 10px;
+            background: linear-gradient(90deg, #60BBEE -2.22%, #2387C0 67.22%);
+
+            @media screen and (max-width: 549px) {
+                & {
+                    height: 5px;
+                }
+            }
+        }
+
+        .advertisement__container-header {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            @media screen and (max-width: 549px) {
+                & {
+                    margin-top: 0px;
+                }
+            }
+
+            .advertisement__container-title {
+                font-size: 24px;
+                font-weight: 600;
+                font-family: 'Poppins', sans-serif;
+
+                @media screen and (max-width: 549px) {
+                    & {
+                        font-size: 16px;
+                        line-height: 24px;
+                    }
+                }
+            }
+
+            .more {
+                font-size: 18px;
+                font-weight: 500;
+                font-family: 'Poppins', sans-serif;
+                color: #0A72AD;
+
+                @media screen and (max-width: 549px) {
+                    & {
+                        font-size: 10px;
+                        line-height: 15px;
+                    }
+                }
+            }
+        }
+
+        .advertisement__container-items {
+            padding-top: 20px;
+            overflow: hidden;
+
+            @media screen and (max-width: 767px) {
+                & {
+                    overflow: visible;
+                }
+            }
+        }
+    }
+}

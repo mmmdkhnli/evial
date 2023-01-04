@@ -1,0 +1,153 @@
+section#useful__links {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 56px;
+    background: rgba(246, 246, 246, 0.8);
+    padding: 0 8.333%;
+
+    @media screen and (max-width: 549px) {
+        & {
+            margin-top: 20px;
+        }
+    }
+
+    .inner {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 30px;
+
+        @media screen and (max-width: 549px) {
+            & {
+                padding-bottom: 20px;
+            }
+        }
+
+        .content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+
+            .title {
+                font-size: 18px;
+                font-weight: 700;
+                font-family: 'DM Sans', sans-serif;
+                color: #242527;
+                margin-top: 50px;
+                margin-bottom: 20px;
+
+                @media screen and (max-width: 549px) {
+                    & {
+                        margin-top: 20px;
+                        margin-bottom: 10px;
+                        font-size: 10px;
+                        line-height: 10px;
+                    }
+                }
+            }
+
+            .agents {
+                width: 100%;
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+                grid-row-gap: 20px;
+
+                @media screen and (max-width: 1199px) {
+                    & {
+                        grid-template-columns: 1fr 1fr 1fr 1fr;
+                    }
+                }
+
+                @media screen and (max-width: 767px) {
+                   & {
+                        grid-template-columns: 1fr 1fr 1fr;
+                   }
+                }
+
+                @media screen and (max-width: 549px) {
+                    & {
+                        grid-row-gap: 10px;
+                    }
+                }
+
+                .agent {
+                    display: flex;
+                    align-items: center;
+
+                    a {
+                        font-size: 16px;
+                        font-weight: 400;
+                        color: #939393;
+                        font-family: 'DM Sans', sans-serif;
+
+                        @media screen and (max-width: 549px) {
+                            & {
+                                font-size: 8px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .links {
+                width: 100%;
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+                gap: 20px;
+
+                @media screen and (max-width: 1365px) {
+                    & {
+                        grid-template-columns: 1fr 1fr 1fr;
+                    }
+                }
+
+                @media screen and (max-width: 767px) {
+                    & {
+                        grid-template-columns: 1fr 1fr;
+                    }
+                }
+
+                @media screen and (max-width: 549px) {
+                    & {
+                        gap: 10px;
+                    }
+                }
+
+                .link {
+                    float: left;
+                    padding: 8px 20px;
+                    border-radius: 20px;
+                    border: 1px solid #939393;
+                    font-family: 'Poppins';
+                    font-weight: 500;
+                    font-size: 16px;
+                    color: #474747;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    @media screen and (max-width: 999px) {
+                        & {
+                            padding: 6px 15px;
+                            font-size: 12px;
+                            line-height: 16px;
+                        }
+                    }
+
+                    @media screen and (max-width: 549px) {
+                        & {
+                            padding: 4px 10px;
+                            font-size: 8px;
+                            line-height: 12px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
