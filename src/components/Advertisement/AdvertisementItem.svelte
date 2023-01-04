@@ -2,149 +2,122 @@
 	import { onMount } from 'svelte'
 	import { v4 as uuid } from '@lukeed/uuid'
 	import { getTransfromXValue } from '$lib/helpers/style'
+	import '$lib/vendor/swiper/swiper-bundle.min.js'
+	import '$lib/vendor/swiper/swiper-bundle.min.css'
 
 	export let advertisementItemData
 
 	const uuidSelector = uuid()
 
-	let _document, imageSlider, mainImageMounted = false, allImagesFetched = false
+	let _document, imageSlider, mainImageMounted = false, allImagesFetched = false, swiperElement
 
-	const getAdvertisementMainImage = async () => {
+	const getAdvertisementMainImage = async (mainImage) => {
 		const collectionID = 219941
 		const numImagesAvailable = 982
 		const randomNumber = Math.floor(Math.random() * numImagesAvailable)
 
 		// ---------------------------------------------------------------
 
-		fetch(`https://source.unsplash.com/collection/${collectionID}/?sig=${randomNumber}`)
-			.then(response => response.blob())
-			.then(imageBlob => {
-				const imageObjectURL = URL.createObjectURL(imageBlob)
-				const mainItem = imageSlider.querySelector('.item.main')
-				const mainItemImg = mainItem.querySelector('img')
+		const response = await fetch(`https://source.unsplash.com/collection/${collectionID}/?sig=${randomNumber}`)
+		const imageBlob = await response.blob()
+		const imageObjectURL = URL.createObjectURL(imageBlob)
 
-				mainItem.classList.remove('skeleton')
-				mainItemImg.src = imageObjectURL
-				mainItemImg.style.visibility = 'visible'
-				mainImageMounted = true
-			})
+		mainImage.src = imageObjectURL
 	}
 
-	const getAdvertisementImages = async mainSvelteClass => {
+	const getAdvertisementImage = async () => {
 		const collectionID = 219941
 		const numImagesAvailable = 982
 		const randomNumber = Math.floor(Math.random() * numImagesAvailable)
 
 		// ---------------------------------------------------------------
-
-		const tempSelector = uuid()
-		const tempHTML = `
-					<div class="item skeleton temp-${ tempSelector } ${ mainSvelteClass }">
-						<img src="" alt="advertisement" class="${ mainSvelteClass }" />
-					</div>`
-
-		imageSlider.querySelector('.items').insertAdjacentHTML('beforeend', tempHTML)
 		
-		fetch(`https://source.unsplash.com/collection/${collectionID}/?sig=${randomNumber}`)
-			.then(response => response.blob())
-			.then(imageBlob => {
-				const imageObjectURL = URL.createObjectURL(imageBlob)
-				const item = imageSlider.querySelector(`.temp-${ tempSelector }`)
-				const image = item.querySelector('img')
+		const response = await fetch(`https://source.unsplash.com/collection/${collectionID}/?sig=${randomNumber}`)
+		const imageBlob = await response.blob()
+		const imageObjectURL = URL.createObjectURL(imageBlob)
 
-				item.classList.remove('skeleton')
-				image.src = imageObjectURL
-				image.style.visibility = 'visible'
-			})
+		// console.log(imageObjectURL);
+
+		// return imageBlob
+
+		// fetch(`https://source.unsplash.com/collection/${collectionID}/?sig=${randomNumber}`)
+		// 	.then(response => response.blob())
+		// 	.then(imageBlob => {
+		// 		const imageObjectURL = URL.createObjectURL(imageBlob)
+
+		// 		console.log(imageObjectURL);
+		// 	})
+	}
+
+	const mountSwiper = () => {
+		const imageLinks = [
+			"https://cdn.pixabay.com/photo/2020/02/16/20/29/nyc-4854718__340.jpg",
+			"https://www.history.com/.image/t_share/MTU3ODc4NjAzNTE1NTA0MzUx/gettyimages-555173607-2.jpg",
+			"https://images.pexels.com/photos/302769/pexels-photo-302769.jpeg?cs=srgb&dl=pexels-pixabay-302769.jpg&fm=jpg",
+			"https://officechai.com/wp-content/uploads/2015/05/Cyberecture-egg-shaped-building-mumbai.jpg",
+			"http://www.officechai.com/wp-content/uploads/2015/05/Fisheries-Department-Building-Hyderabad.jpg"
+		]
+
+		const mainClassName = imageSlider.parentElement.parentElement.classList[1]
+		
+		let swiperWrapperContent = ""
+
+		swiperWrapperContent += `<div class="swiper-wrapper-img ${ mainClassName }">`
+
+		imageLinks.forEach(url => {
+			swiperWrapperContent += `
+							<div class="swiper-slide-img ${ mainClassName }">
+								<img data-src="${ url }" class="${ mainClassName } swiper-lazy advertisement-image" />
+								<div class="skeleton ${ mainClassName }"></div>
+							</div>`
+		})
+
+		swiperWrapperContent += `</div>
+								<div class="__prev__ swiper-button-prev-img-${ uuidSelector } ${ mainClassName }"></div>	
+								<div class="__next__ swiper-button-next-img-${ uuidSelector } ${ mainClassName }"></div>`
+
+		_document.querySelector(`.swiper-${ uuidSelector }`).insertAdjacentHTML('beforeend', swiperWrapperContent)
+
+		swiperElement = new Swiper(`.swiper-${ uuidSelector }`, {
+            slidesPerView: 1,
+            wrapperClass: 'swiper-wrapper-img',
+			slideClass: 'swiper-slide-img',
+            navigation: {
+                nextEl: `.swiper-button-next-img-${ uuidSelector }`,
+                prevEl: `.swiper-button-prev-img-${ uuidSelector }`
+            },
+			loop: true,
+			lazy: true,
+			nested: true
+        })
+
+		swiperElement.on('lazyImageReady', (swiper, slide, image) => {
+			slide.querySelector('.skeleton').remove()
+			image.style.display = 'block'
+		})
+
+		imageSlider.addEventListener('mouseenter', e => {
+			e.target.querySelector('.__prev__').style.display = 'block'
+			e.target.querySelector('.__next__').style.display = 'block'
+		})
+
+		imageSlider.addEventListener('mouseleave', e => {
+			e.target.querySelector('.__prev__').style.display = 'none'
+			e.target.querySelector('.__next__').style.display = 'none'
+		})
 	}
 
 	onMount(() => {
 		_document = document
-		imageSlider = _document.querySelector(`.slider-${ uuidSelector }`)
+		imageSlider = _document.querySelector(`.swiper-${ uuidSelector }`)
 
-		getAdvertisementMainImage()
-
-		const mainSvelteClass = Array.from(imageSlider.querySelector('.main').classList)[3]
-		const mainItem = imageSlider?.querySelector('.item.main')
-		const sliderItemsWrapper = imageSlider.querySelector('.items')
-
-		imageSlider.addEventListener('mouseenter', () => {
-			if (mainImageMounted) imageSlider.parentElement.querySelector('.slider-navigations').style.display = 'block'
-		})
-
-		imageSlider.addEventListener('mouseleave', () => {
-			if (mainImageMounted) imageSlider.parentElement.querySelector('.slider-navigations').style.display = 'none'
-		})
-
-		imageSlider?.querySelector('.prev').addEventListener('click', e => {
-			const mainItemWIdth = mainItem.getBoundingClientRect().width
-			// const mainItemWIdth = mainItem.clientWidth
-			const mainItemTranslateX = getTransfromXValue(sliderItemsWrapper)
-
-			if (!allImagesFetched) {
-				for (let index = 0; index < 3; index++) {
-					getAdvertisementImages(mainSvelteClass)
-				}
-
-				allImagesFetched = true
-			}
-
-			if (mainItemTranslateX < 0) {
-				const currentStep = sliderItemsWrapper.getAttribute('data-swipe-step')
-
-				sliderItemsWrapper.setAttribute('data-swipe-step', (Number(currentStep) - 1))
-
-				sliderItemsWrapper.style.transform = `translateX(${ mainItemTranslateX + mainItemWIdth }px)`
-			}
-		})
-
-		imageSlider?.querySelector('.next').addEventListener('click', e => {
-			const mainItemWIdth = mainItem.getBoundingClientRect().width
-			// const mainItemWIdth = mainItem.clientWidth
-			const mainItemTranslateX = getTransfromXValue(sliderItemsWrapper)
-
-			if (!allImagesFetched) {
-				for (let index = 0; index < 3; index++) {
-					getAdvertisementImages(mainSvelteClass)
-				}
-				
-				allImagesFetched = true
-			}
-
-			const itemCount = sliderItemsWrapper.querySelectorAll('.item').length
-			const maxTransformValue = (itemCount - 1) * mainItemWIdth
-
-			if (Math.abs(mainItemTranslateX) < maxTransformValue) {
-				const currentStep = sliderItemsWrapper.getAttribute('data-swipe-step')
-
-				sliderItemsWrapper.setAttribute('data-swipe-step', (Number(currentStep) + 1))
-
-				sliderItemsWrapper.style.transform = `translateX(${ mainItemTranslateX - mainItemWIdth }px)`
-			}
-		})
-
-		window.addEventListener('resize', () => {
-			const mainItemWIdth = mainItem.getBoundingClientRect().width
-			const currentStep = sliderItemsWrapper.getAttribute('data-swipe-step')
-			const itemCount = sliderItemsWrapper.querySelectorAll('.item').length
-
-			console.log(itemCount);
-		})
+		mountSwiper()
 	})
 </script>
 
 <div class="advertisement__item">
 	<div class="advertisement__item-slider">
-		<div class="slider-{ uuidSelector }">
-			<div class="items" data-swipe-step="0">
-				<div class="item main skeleton">
-					<img src="" alt="advertisement" />
-				</div>
-			</div>
-			<div class="slider-navigations">
-				<div class="prev"></div>
-				<div class="next"></div>
-			</div>
+		<div class="swiper-{ uuidSelector }">
 		</div>
 	</div>
 	<a href="#item">
