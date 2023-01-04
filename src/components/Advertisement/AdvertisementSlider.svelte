@@ -11,7 +11,7 @@
 
     const advertisementResponse = new AdvertisementRequest(advertisementConfig.type)
 
-    let _document, _Element, _HTMLElement, swiperElement, getNewData, fetchedHTML
+    let _document, swiperElement, getNewData, fetchedHTML
 
     const uuidSelector = uuid()
 
@@ -52,8 +52,6 @@
 
 	onMount(() => {
         _document = document
-        _Element = Element
-        _HTMLElement = HTMLElement
 	})
 
     const getAdvertisementData = async () => {        
@@ -73,17 +71,19 @@
     }
 
     const updateSlideItems = (fetchedHTML) => {
-        getNewData = false
+        if (getNewData == true) {
+            if (fetchedHTML !== null && fetchedHTML !== undefined) {
+                if (fetchedHTML instanceof HTMLElement) {
+                    if (fetchedHTML.innerHTML.trim() !== '') {
+                        const tempSliders = Array.from(fetchedHTML.querySelectorAll('.swiper-slide'))
 
-        if (fetchedHTML !== null && fetchedHTML !== undefined) {
-            if (fetchedHTML instanceof HTMLElement) {
-                if (fetchedHTML.innerHTML.trim() !== '') {
-                    const tempSliders = fetchedHTML.querySelectorAll('.swiper-slide')
-
-                    swiperElement.appendSlide([...tempSliders])
+                        swiperElement.appendSlide(tempSliders)
+                    }
                 }
             }
         }
+
+        getNewData = false
     }
 
     $: updateSlideItems(fetchedHTML)
