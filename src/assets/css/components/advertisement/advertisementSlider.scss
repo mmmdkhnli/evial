@@ -1,11 +1,10 @@
 .swiperButtons {
     max-width: 1600.03px;
     width: calc(100% - 16.66666%);
-    display: flex;
-    justify-content: space-between;
     position: absolute;
     z-index: 0;
     transform: translateY(-205px);
+    display: none;
 
     @media screen and (max-width: 767px) {
         display: none;
@@ -26,6 +25,7 @@
         background-position: center center;
         background-repeat: no-repeat;
         background-size: 8px;
+        float: left;
     }
 
     .next-btn {
@@ -34,6 +34,7 @@
         background-position: center center;
         background-repeat: no-repeat;
         background-size: 8px;
+        float: right;
     }
 }
 
@@ -86,8 +87,14 @@
     -webkit-user-select: none;
 
     @media screen and (max-width: 549px) {
+        margin-top: 5px;
+
         &> img {
             height: 14px;
         }
     }
+}
+
+.temp {
+    display: none;
 }

@@ -6,6 +6,7 @@
         <div class="detail-short"></div>
         <div class="detail-long"></div>
         <div class="detail-short"></div>
+        <div class="detail-long"></div>
     </div>
 </div>
 
