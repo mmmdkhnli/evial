@@ -77,21 +77,19 @@
 	})
 </script>
 
-<div class="advertisement__item">
+<a href="#item" class="advertisement__item">
 	<div class="advertisement__item-slider">
 		<div class="swiper-{ uuidSelector }">
 		</div>
 	</div>
-	<a href="#item">
-		<div class="advertisement__item-price">{advertisementItemData?.price} azn</div>
-		<div class="advertisement__item-details">
-			<p>{advertisementItemData?.township} ray.</p>
-			<p>{advertisementItemData?.details}</p>
-			<p>Baxış sayı: {advertisementItemData?.viewCount}</p>
-			<p>Yeniləndi: {advertisementItemData?.updatedAt}</p>
-		</div>
-	</a>
-</div>
+	<div class="advertisement__item-price">{advertisementItemData?.price} azn</div>
+	<div class="advertisement__item-details">
+		<p>{advertisementItemData?.township} ray.</p>
+		<p>{advertisementItemData?.details}</p>
+		<p>Baxış sayı: {advertisementItemData?.viewCount}</p>
+		<p>Yeniləndi: {advertisementItemData?.updatedAt}</p>
+	</div>
+</a>
 
 <style lang="scss">
 	@import '../../assets/css/components/advertisement/advertisementItem.scss';

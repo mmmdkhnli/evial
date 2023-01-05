@@ -1,4 +1,4 @@
-<h1>Create ad</h1>
+<h1>Create advertising</h1>
 
 <svelte:head>
     <title>Reklam yerləşdirmək</title>

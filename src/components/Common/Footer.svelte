@@ -9,7 +9,7 @@
     <div class="footer__inner">
         <div class="footer__top">
             <div class="logo">Evial</div>
-            <a href="/create-ad" class="create-ad">Reklam yerləşdirin</a>
+            <a href="/create/advertising" class="create-ad">Reklam yerləşdirin</a>
         </div>
 
         <div class="seperator"></div>

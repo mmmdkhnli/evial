@@ -1,0 +1,36 @@
+.page {
+    #create-detail {
+        font-size: 18px;
+        font-weight: 500;
+        color: #939393;
+        margin-top: 20px;
+    }
+    
+    #signContainer {
+        width: 100%;
+        height: auto;
+        margin-top: 20px;
+    
+        .signForm {
+            display: flex;
+            flex-direction: column;
+        
+            .row {
+                width: 100%;
+                height: auto;
+                display: grid;
+                gap: 50px;
+                grid-template-columns: 2fr 1fr 1fr;
+        
+                .col {
+                    width: 100%;
+                    height: auto;
+                }
+
+                &:not(:first-of-type) {
+                    margin-top: 20px;
+                }
+            }
+        }
+    }
+}
