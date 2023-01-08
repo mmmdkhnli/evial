@@ -1,0 +1,57 @@
+.commonTitle {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .banner-bg {
+        width: 80px;
+        height: 10px;
+        background: linear-gradient(90deg, #60BBEE -2.22%, #2387C0 67.22%);
+
+        @media screen and (max-width: 549px) {
+            & {
+                height: 5px;
+            }
+        }
+    }
+
+    .title-header {
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        @media screen and (max-width: 549px) {
+            & {
+                margin-top: 0px;
+            }
+        }
+
+        .header-text {
+            font-size: 24px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+
+            @media screen and (max-width: 549px) {
+                & {
+                    font-size: 16px;
+                    line-height: 24px;
+                }
+            }
+        }
+
+        .more {
+            font-size: 18px;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            color: #0A72AD;
+
+            @media screen and (max-width: 549px) {
+                & {
+                    font-size: 10px;
+                    line-height: 15px;
+                }
+            }
+        }
+    }
+}

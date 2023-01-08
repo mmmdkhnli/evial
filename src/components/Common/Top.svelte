@@ -61,7 +61,7 @@
         <div class="header__top__nav-preference">
             <a class="item" href="tel:0121234455">Dəstək xidməti: (012) 123 44 55</a>
             <a class="item" href="/favourites">Seçilmişlər</a>
-            <a class="item" href="/create">
+            <a class="item" href="/create/advertisement">
                 <div class="adversity">Elan yerləşdir</div>
             </a>
             <a class="item" href="#login">
