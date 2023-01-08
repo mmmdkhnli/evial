@@ -10,6 +10,7 @@
         width: 100%;
         height: auto;
         margin-top: 20px;
+        margin-bottom: 110px;
     
         .signForm {
             display: flex;
@@ -25,10 +26,78 @@
                 .col {
                     width: 100%;
                     height: auto;
+                    display: flex;
+                    align-items: flex-end;
+                    position: relative;
                 }
 
                 &:not(:first-of-type) {
                     margin-top: 20px;
+                }
+            }
+        }
+    }
+
+    #advertisementInfo {
+        margin-top: 20px;
+        display: grid;
+        column-gap: 50px;
+        grid-template-columns: 1fr 1fr;
+
+        .fields {
+            height: auto;
+
+            .mainForm {
+                display: flex;
+                flex-direction: column;
+            
+                .row {
+                    width: 100%;
+                    height: auto;
+                    display: grid;
+                    gap: 50px;
+                    grid-template-columns: 1fr 1fr;
+            
+                    .col {
+                        width: 100%;
+                        height: auto;
+                        display: flex;
+                        align-items: flex-end;
+                        position: relative;
+                    }
+    
+                    &:not(:first-of-type) {
+                        margin-top: 20px;
+                    }
+                }
+            }
+        }
+
+        .rules {
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            background: #60BBEE;
+            border-radius: 5px;
+        
+            .title {
+                font-size: 24px;
+                color: #fff;
+                text-align: center;
+                font-weight: 500;
+            }
+
+            .content {
+                margin-top: 20px;
+                font-size: 18px;
+                color: #fff;
+                text-align: justify;
+                padding-left: 20px;
+                font-weight: 200;
+
+                li {
+                    list-style-type: disc;
                 }
             }
         }
